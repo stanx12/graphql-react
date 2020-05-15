@@ -5,22 +5,33 @@
   "main": "app.js",
   "scripts": {
     "prebuild": "rimraf dist/",
-    "build": "babel ./ --out-dir dist/ --ignore ./node_modules,./package.json,./npm-debug.log,./package-lock.json --copy-files",
+    "build": "babel-node ./ --out-dir dist/ --ignore ./node_modules,./package.json,./npm-debug.log,./package-lock.json --copy-files",
     "start": "npm run build && node dist/app.js",
-    "dev": "nodemon app.js --exec babel-node --presets babel-preset-env",
+    "dev": "nodemon app.js --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Gerald S. Padgett <padgett.gerald93@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
     "express": "4.17.1",
     "express-graphql": "0.9.0",
-    "graphql": "15.0.0"
+    "graphql": "15.0.0",
+    "mongoose": "5.9.13"
   },
   "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-preset-env": "1.7.0",
+    "@babel/core": "7.9.6",
+    "@babel/node": "7.8.7",
+    "@babel/plugin-proposal-object-rest-spread": "7.9.6",
+    "@babel/plugin-proposal-optional-chaining": "7.9.0",
+    "@babel/plugin-syntax-dynamic-import": "7.8.3",
+    "@babel/plugin-transform-destructuring": "7.9.5",
+    "@babel/plugin-transform-regenerator": "7.8.7",
+    "@babel/plugin-transform-runtime": "7.9.6",
+    "@babel/preset-env": "7.9.6",
+    "@babel/register": "7.9.0",
+    "babel-loader": "8.1.0",
     "eslint": "6.8.0",
     "eslint-config-airbnb": "18.1.0",
     "eslint-config-node": "4.0.0",

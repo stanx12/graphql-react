@@ -3,6 +3,24 @@
   "extends": ["airbnb", "prettier"],
   "plugins": ["prettier", "import"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "max-len": [
+      "error",
+      { "code": 120 }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always"
+      }
+    ],
+    "import/prefer-default-export": 1
   }
 }

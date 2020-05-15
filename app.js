@@ -1,65 +1,33 @@
+/* eslint-disable no-underscore-dangle */
 import express from 'express';
 import bodyParser from 'body-parser';
 import graphqlHttp from 'express-graphql';
-import { buildSchema } from 'graphql';
+import moongose from 'mongoose';
+
+import schema from './graphql/schema';
+import resolvers from './graphql/resolvers';
 
 const app = express();
 
-const events = [];
 app.use(bodyParser.json());
 
 app.use(
   '/graphql',
   graphqlHttp({
     graphiql: true,
-    schema: buildSchema(`
-
-    type Event {
-      _id: ID!
-      title: String!
-      description: String!
-      price: Float!
-      date: String!
-    }
-
-    input EventInput {
-      title: String!
-      description: String!
-      price: Float!
-      date: String!
-    }
-
-    type RootQuery {
-      events: [Event!]!
-    }
-
-    type RootMutation {
-      createEvent(eventInput: EventInput): Event
-    }
-
-    schema {
-      query: RootQuery,
-      mutation: RootMutation
-    }
-  `),
-    rootValue: {
-      events: () => events,
-      createEvent: (args) => {
-        const { eventInput } = args;
-        console.log(eventInput);
-        const { title, description, price, date } = eventInput;
-        const event = {
-          _id: Math.random().toString(),
-          title,
-          description,
-          price: +price,
-          date,
-        };
-        events.push(event);
-        return event;
-      },
-    },
+    schema,
+    rootValue: resolvers
   })
 );
 
-app.listen(3000);
+moongose
+  .connect(
+    // eslint-disable-next-line max-len
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-lg9go.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => {
+    app.listen(3000);
+    console.log('Server started');
+  })
+  .catch(err => console.log(err));
