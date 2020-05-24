@@ -8,7 +8,8 @@
     "build": "babel-node ./ --out-dir dist/ --ignore ./node_modules,./package.json,./npm-debug.log,./package-lock.json --copy-files",
     "start": "npm run build && node dist/app.js",
     "dev": "nodemon app.js --exec babel-node",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "git-cz"
   },
   "author": "Gerald S. Padgett <padgett.gerald93@gmail.com>",
   "license": "MIT",
@@ -32,6 +33,7 @@
     "@babel/preset-env": "7.9.6",
     "@babel/register": "7.9.0",
     "babel-loader": "8.1.0",
+    "commitizen": "^4.1.2",
     "eslint": "6.8.0",
     "eslint-config-airbnb": "18.1.0",
     "eslint-config-node": "4.0.0",
@@ -45,5 +47,11 @@
     "nodemon": "2.0.3",
     "prettier": "2.0.5",
     "rimraf": "3.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   }
+
 }
