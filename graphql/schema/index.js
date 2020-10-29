@@ -25,6 +25,12 @@ export default gql`
     updatedAt: String!
   }
 
+  type AuthData {
+    userId: ID!
+    token: String!
+    tokenExpiration: Int!
+  }
+
   input EventInput {
     title: String!
     description: String!
@@ -40,6 +46,7 @@ export default gql`
   type Query {
     events: [Event!]!
     bookings: [Booking!]!
+    login(email: String!, password: String!): AuthData!
   }
 
   type Mutation {
