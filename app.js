@@ -8,7 +8,11 @@ import typeDefs from './graphql/schema';
 import resolvers from './graphql/resolvers';
 
 const startServer = async () => {
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req }) => ({ req })
+  });
   const app = express();
   server.applyMiddleware({ app });
 

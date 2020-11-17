@@ -1,7 +1,7 @@
 {
   "env": {
     "MONGO_USER": "gpadgett",
-    "MONGO_PASSWORD": "",
+    "MONGO_PASSWORD": "EYZpqx1zm9W6pSV1",
     "MONGO_DB": "events-react-dev"
   }
 }

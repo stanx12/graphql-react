@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { Booking, Event, User } from '../../models';
+import isAuth from '../../middleware/is-auth';
 
 import { transformEvent, transformBooking } from './merge';
 
@@ -18,7 +19,11 @@ export default {
     }
   },
   Mutation: {
-    bookEvent: async (_, { eventId }) => {
+    bookEvent: async (_, { eventId }, context) => {
+      if (!isAuth(context)) {
+        return null;
+      }
+
       try {
         const fetchedEvent = await Event.findOne({ _id: eventId });
         const fetchedUser = await User.findById('5ebf2b08434b1b8cea9cc0a4');
@@ -36,7 +41,11 @@ export default {
         throw error;
       }
     },
-    cancelBooking: async (_, { bookingId }) => {
+    cancelBooking: async (_, { bookingId }, context) => {
+      if (!isAuth(context)) {
+        return null;
+      }
+
       try {
         const booking = await Booking.findById(bookingId).populate('event');
 

@@ -27,8 +27,6 @@ const user = async id => {
   try {
     const foundUser = await User.findById(id);
 
-    console.log({ ...foundUser._doc });
-
     return {
       ...foundUser._doc,
       _id: foundUser.id,
