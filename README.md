@@ -1,7 +1,6 @@
-# Event book
+# Event book (backend)
 
 Event Booking system built using:
-* React
 * GraphQL
 * Node.js
 * Mongo DB
