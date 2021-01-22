@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { dateToString } from '../../utils';
 import { Event, User } from '../../models';
+import isAuth from '../../middleware/is-auth';
 
 import { transformEvent } from './merge';
 
@@ -19,7 +20,12 @@ export default {
     }
   },
   Mutation: {
-    createEvent: async (_, { eventInput }) => {
+    createEvent: async (_, { eventInput }, context) => {
+      if (!isAuth(context)) {
+        return null;
+      }
+
+      const { userId } = context.req;
       const { title, description, price, date } = eventInput;
 
       const event = new Event({
@@ -27,13 +33,13 @@ export default {
         description,
         price,
         date: dateToString(date),
-        creator: '5ebf2b08434b1b8cea9cc0a4'
+        creator: userId
       });
 
       try {
         const result = await event.save();
         const createdEvent = transformEvent(result);
-        const userFound = await User.findById('5ebf2b08434b1b8cea9cc0a4');
+        const userFound = await User.findById(userId);
 
         if (!userFound) {
           throw new Error('User not found');

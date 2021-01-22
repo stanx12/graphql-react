@@ -17,6 +17,7 @@ export default ({ req }) => {
     // Validating token
     const decodedToken = jwt.verify(token, 'testString');
 
+    req.userId = decodedToken.userId;
     return decodedToken;
   } catch (e) {
     throw new Error('Invalid Token');

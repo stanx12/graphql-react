@@ -25,8 +25,9 @@ export default {
       }
 
       try {
+        const { userId } = context.req;
         const fetchedEvent = await Event.findOne({ _id: eventId });
-        const fetchedUser = await User.findById('5ebf2b08434b1b8cea9cc0a4');
+        const fetchedUser = await User.findById(userId);
 
         const booking = new Booking({
           user: fetchedUser,
